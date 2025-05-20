@@ -3,7 +3,6 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 
 const uri = process.env.MONGO_URI;
 
-
 const client = new MongoClient(uri, {
   serverApi: {
     version: ServerApiVersion.v1,
@@ -17,7 +16,7 @@ let db;
 async function connectToMongo() {
   try {
     await client.connect();
-    db = client.db('podcast');
+    db = client.db('podcast'); // You can access collections from this
     console.log('✅ Connected to MongoDB Atlas');
   } catch (error) {
     console.error('❌ MongoDB connection error:', error);

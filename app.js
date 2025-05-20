@@ -3,6 +3,7 @@ const cors = require('cors');
 const { connectToMongo } = require('./config/config');
 const authRoutes = require('./routes/authRoute');
 const podcastRoute = require('./routes/podcastRoute');
+const episodeRoute = require('./routes/episodeRoute');
 
 require('dotenv').config();
 const app = express();
@@ -15,6 +16,7 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use('/api/v1/auth/admin', authRoutes);
 app.use('/api/v1', podcastRoute);
+app.use('/api/v1/podcasts', episodeRoute)
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk&display=swap');
+
+@import "tailwindcss";
+
+:root {
+    --bg-clr: #1F2130;
+    --acc-clr: #E94F56;
+    --txt-clr: #F4F4F5;
+    --sec-clr: #A1A1AA;
+
+    --pry-ff: "Space Grotesk", sans-serif;
+}
+
+.bg-clr {
+    color: var(--bg-clr);
+    border: 1px solid var(--bg-clr);
+}
+
+.acc-clr {
+    color: var(--acc-clr);
+    background-color: var(--acc-clr);
+    border: 1px solid var(--acc-clr);
+    text-shadow:
+      0 0 5px var(--acc-clr),
+      0 0 10px var(--acc-clr),
+      0 0 20px var(--acc-clr),
+      0 0 30px var(--acc-clr),
+      0 0 40px var(--acc-clr);
+}
+
+.txt-clr {
+    color: var(--txt-clr);
+    border: 1px solid var(--txt-clr);
+}
+.sec-clr {
+    color: var(--sec-clr);
+}
+
+.pry-ff {
+    font-family: var(--pry-ff);
+}

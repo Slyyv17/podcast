@@ -14,10 +14,10 @@ export default function Navigation() {
     <nav className="w-full fixed top-0 z-50 bg-black/10 backdrop-blur-md shadow-md pry-ff">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
-        <h1 className="text-[var(--bg-clr)] text-lg font-bold">LarksPod</h1>
+        <h1 className="text-[var(--txt-clr)] text-lg font-bold">LarksPod</h1>
 
         {/* Navigation Links - Hidden on small screens, visible on md and up */}
-        <ul className="hidden md:flex items-center gap-6 text-white uppercase text-sm">
+        <ul className="hidden md:flex items-center gap-6 text-[var(--txt-clr)] uppercase text-sm">
           <li className="hover:text-[var(--acc-clr)] transition-colors cursor-pointer">home</li>
           <li className="hover:text-[var(--acc-clr)] transition-colors cursor-pointer">about</li>
           <li className="hover:text-[var(--acc-clr)] transition-colors cursor-pointer">contact</li>
@@ -39,7 +39,7 @@ export default function Navigation() {
 
         {/* Hamburger Icon for Mobile - Visible on small screens, hidden on md and up */}
         <div className="md:hidden flex items-center gap-4">
-          <button onClick={toggleMobileMenu} className="text-white focus:outline-none cursor-pointer">
+          <button onClick={toggleMobileMenu} className="text-[var(--txt-clr)] focus:outline-none cursor-pointer">
             {isMobileMenuOpen ? (
               <XIcon className="w-6 h-6" /> // 'X' icon when menu is open
             ) : (

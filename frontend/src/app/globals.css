@@ -3,8 +3,8 @@
 @import "tailwindcss";
 
 :root {
-    --bg-clr: #1F2130;
-    --acc-clr: #E94F56;
+    --bg-clr: #000000;
+    --acc-clr: #8D2524;
     --txt-clr: #F4F4F5;
     --sec-clr: #A1A1AA;
 

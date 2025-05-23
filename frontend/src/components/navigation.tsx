@@ -11,7 +11,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="w-full fixed top-0 z-50 bg-black/10 backdrop-blur-md shadow-md pry-ff">
+    <nav className="w-full fixed top-0 z-50 bg-white/5 backdrop-blur-md shadow-md pry-ff">
       <div className="max-w-7xl mx-auto px-4 py-3 flex justify-between items-center">
         {/* Logo */}
         <h1 className="text-[var(--txt-clr)] text-lg font-bold">LarksPod</h1>

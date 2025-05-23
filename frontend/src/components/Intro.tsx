@@ -50,7 +50,7 @@ export default function Intro() {
           <button className="bg-[var(--acc-clr)] text-[var(--txt-clr)] px-4 py-2 rounded-lg cursor-pointer capitalize">
             start listening
           </button>
-          <button className="border border-[var(--sec-clr)] bg-[var(--txt-clr)] px-4 py-2 rounded-lg cursor-pointer capitalize text-[var(--bg-clr)]">
+          <button className="border border-[var(--sec-clr)] bg-[var(--txt-clr)] px-4 py-2 rounded-lg cursor-pointer capitalize text-[var(--acc-clr)]">
             explore channels
           </button>
         </div>

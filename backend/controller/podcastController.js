@@ -90,6 +90,53 @@ const getPodcasts = async (req, res) => {
   }
 }
 
+const getPodcastRssFeed = async (req, res) => {
+  try {
+    const db = getDB();
+    const podcastCollection = db.collection('podcasts');
+    const podcastId = req.params.id;
+
+    if (!ObjectId.isValid(podcastId)) {
+      return res.status(400).send('Invalid podcast ID');
+    }
+
+    const podcast = await podcastCollection.findOne({ _id: new ObjectId(podcastId) });
+
+    if (!podcast) {
+      return res.status(404).send('Podcast not found');
+    }
+
+    // Build RSS XML string - you can expand this with real episodes later
+    const rssXml = `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0">
+  <channel>
+    <title>${podcast.title}</title>
+    <link>${process.env.BASE_URL}/podcast/${podcastId}</link>
+    <description>${podcast.description}</description>
+    <image>
+      <url>${podcast.coverImg}</url>
+      <title>${podcast.title}</title>
+      <link>${process.env.BASE_URL}/podcast/${podcastId}</link>
+    </image>
+    <item>
+      <title>Sample Episode</title>
+      <description>This is a sample episode description</description>
+      <pubDate>${new Date().toUTCString()}</pubDate>
+      <guid>${podcastId}-episode-1</guid>
+      <!-- Add enclosure tag here if you have audio files -->
+    </item>
+  </channel>
+</rss>`;
+
+    res.set('Content-Type', 'application/rss+xml');
+    return res.status(200).send(rssXml);
+
+  } catch (error) {
+    console.error('Error generating RSS feed:', error);
+    return res.status(500).send('Server error');
+  }
+};
+
 const getPodcastById = async (req, res) => {
   const { id } = req.params;
 
@@ -142,6 +189,7 @@ const deletePodcast = async (req, res) => {
 module.exports = {
   newPodcast,
   getPodcasts,
+  getPodcastRssFeed,
   getPodcastById,
   deletePodcast,
 };

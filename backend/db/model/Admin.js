@@ -19,6 +19,13 @@ const adminSchema = new mongoose.Schema({
         enum: ['admin', 'user'],
         default: 'admin',
     },
+    subscribers: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'User',
+            default: [],
+        }
+    ],
 });
 
 module.exports = mongoose.model('Admin', adminSchema);

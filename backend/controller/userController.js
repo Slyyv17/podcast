@@ -177,10 +177,34 @@ const unsubscribeFromAdmin = async (req, res) => {
   }
 };
 
+const deleteUserAcct = async (req, res) => {
+  const userId = req.user.id;
+  
+  try {
+    const db = getDB();
+    const userCollection = db.collection('users');
+
+    // Check if user exists
+    const user = await userCollection.findOne({ _id: new ObjectId(userId) });
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    // Delete user account
+    await userCollection.deleteOne({ _id: new ObjectId(userId) });
+    return res.status(200).json({ message: 'Account deleted successfully' });
+  }
+  catch (err) {
+    console.error('Error deleting your account:', err);
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+}
+
 
 module.exports = {
     likePodcast,
     dislikePodcast,
     subscribeToAdmin,
     unsubscribeFromAdmin,
+    deleteUserAcct,
 };

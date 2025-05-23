@@ -5,6 +5,7 @@ const authRoutes = require('./routes/authRoute');
 const podcastRoute = require('./routes/podcastRoute');
 const episodeRoute = require('./routes/episodeRoute');
 const userRoute = require('./routes/userRoute');
+const adminRoute = require('./routes/adminRoute');
 
 require('dotenv').config();
 const app = express();
@@ -19,6 +20,7 @@ app.use('/api/v1/auth', authRoutes);
 app.use('/api/v1', podcastRoute);
 app.use('/api/v1/podcasts', episodeRoute)
 app.use('/api/v1/user', userRoute);
+app.use('/api/v1/admin', adminRoute);
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

@@ -96,6 +96,17 @@ const loginAdmin = async (req, res) => {
     }
 }
 
+const logoutAdmin = async (req, res) => {
+  try {
+    // Invalidate the token by removing it from the client side
+    res.status(200).json({ message: 'Admin logged out' });
+  }
+  catch (err) {
+    console.error('Error logging out admin:', err);
+    res.status(500).json({ message: 'Error logging out admin', error: err.message });
+  }
+}
+
 const addUser = async (req, res) => {
   const { fullname, email, password } = req.body;
 
@@ -181,9 +192,21 @@ const loginUser = async (req, res) => {
   }
 }
 
+const logoutUser = async (req, res) => {
+  try {
+    // Invalidate the token by removing it from the client side
+    res.status(200).json({ message: 'User logged out' });
+  } catch (err) {
+    console.error('Error logging out user:', err);
+    res.status(500).json({ message: 'Error logging out user', error: err.message });
+  }
+}
+
 module.exports = {
     addAdmin,
     loginAdmin,
+    logoutAdmin,
     addUser,
     loginUser,
+    logoutUser,
 };

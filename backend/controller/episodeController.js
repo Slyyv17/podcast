@@ -19,26 +19,38 @@ const newEpisode = async (req, res) => {
       return res.status(400).json({ message: 'Invalid podcast ID' });
     }
 
+    
+    
     if (!title || !description || !audioFile) {
       return res.status(400).json({ message: 'Title, description, and audio file are required' });
     }
-
+    
     const db = getDB();
     const podcastCollection = db.collection('podcasts');
     const episodeCollection = db.collection('episodes');
-
+    
+    // existing episode validation
+    const existingEpisode = await episodeCollection.findOne({
+      podcastId: new ObjectId(podcastId),
+      title: title.trim()
+    });
+    
+    if (existingEpisode) {
+      return res.status(409).json({ message: 'Episode with this title already exists in the podcast' });
+    }
+    
     // Get podcast coverImg
     const podcast = await podcastCollection.findOne({ _id: new ObjectId(podcastId) });
     if (!podcast) {
       return res.status(404).json({ message: 'Podcast not found' });
     }
-
+    
     // Upload audio to Cloudinary
     const audioResult = await cloudinary.uploader.upload(audioFile.path, {
       resource_type: 'video', // 'video' is used for audio/video in Cloudinary
       folder: 'podcast-audios',
     });
-
+    
     // Delete local file
     fs.unlink(audioFile.path, (err) => {
       if (err) console.error('Error deleting local file:', err);
@@ -46,15 +58,22 @@ const newEpisode = async (req, res) => {
 
     const newEp = {
       podcastId: new ObjectId(podcastId),
-      title,
+      title: title.trim(),
       description,
       audio: audioResult.secure_url,
       coverImg: podcast.coverImg,
       createdAt: new Date(),
+      publishedAt: new Date(), // Set to current date, can be modified later
       updatedAt: new Date(),
     };
 
     const result = await episodeCollection.insertOne(newEp);
+
+    await db.collection('podcasts').updateOne(
+      { _id: new ObjectId(podcastId) },
+      { $inc: { episodeCount: 1 }, $set: { updatedAt: new Date() } }
+    );
+    
 
     return res.status(201).json({
       message: 'Episode created successfully',

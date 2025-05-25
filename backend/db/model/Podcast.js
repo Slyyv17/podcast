@@ -22,18 +22,9 @@ const podcastSchema = new mongoose.Schema({
         type: String,
         required: true, // Cover image URL for the podcast
     },
-    likes: {
+    episodeCount: {
         type: Number,
-        default: 0, // Like count
-    },
-    userLiked: [
-        {
-            type: mongoose.Schema.Types.ObjectId, // Array of userIds who liked the podcast
-            ref: 'User', // Reference to the User model
-        }
-    ],
-    episodeNumber: {
-        type: Number,
+        default: 0,
         required: true,
     }, // Each time a new episode is created, you increment the episodeNumber by 1
     createdAt: {

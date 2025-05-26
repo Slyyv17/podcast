@@ -5,7 +5,7 @@ export default function Description() {
     <div
       className="hidden md:flex min-h-screen bg-transparent items-center justify-center p-4 w-1/2"
     >
-      <div className=" border relative w-full max-w-sm h-[500px] bg-[var(--bg-clr)] rounded-xl overflow-hidden">
+      <div className=" border relative w-full max-w-lg h-[500px] bg-[var(--bg-clr)] rounded-xl overflow-hidden">
         <Image
           src="/larks-dark.png"
           alt="Larks Podcast"

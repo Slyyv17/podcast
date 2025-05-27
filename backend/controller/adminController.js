@@ -63,9 +63,27 @@ const getNumberOfEpisodes = async (req, res) => {
     }
 }
 
+const recentEpisodes = async (req, res) => {
+    const db = getDB();
+  
+    try {
+      const episodes = await db.collection('episodes')
+        .find()
+        .sort({ createdAt: -1 })
+        .limit(3)
+        .toArray();
+  
+      res.status(200).json(episodes);
+    } catch (error) {
+      console.error('Error fetching recent episodes:', error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+}
+
 module.exports = {
     getAllUsers,
     getNumberOfUsers,
     getNumberOfSubscribers,
     getNumberOfEpisodes,
+    recentEpisodes,
 }

@@ -27,6 +27,10 @@ const podcastSchema = new mongoose.Schema({
         default: 0,
         required: true,
     }, // Each time a new episode is created, you increment the episodeNumber by 1
+    profileViews: {
+        type: Number,
+        default: 0,
+    },
     createdAt: {
         type: Date,
         default: Date.now,

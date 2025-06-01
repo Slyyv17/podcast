@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 
-const { newPodcast, getPodcasts, getPodcastById, deletePodcast, getPodcastRssFeed } = require('../controller/podcastController');
+const { newPodcast, getPodcasts, getPodcastById, deletePodcast, getPodcastRssFeed, profileViews } = require('../controller/podcastController');
 const verifyAdmin = require('../middleware/verifyAdmin');
 const upload = require('../middleware/multer');
 
@@ -14,5 +14,7 @@ router.get('/podcast/:id', verifyAdmin, getPodcastById);
 router.get('/podcast/:id/rss.xml', getPodcastRssFeed);
 
 router.delete('/podcast/:id', verifyAdmin, deletePodcast);
+
+router.get('/podcast', profileViews);
 
 module.exports = router;

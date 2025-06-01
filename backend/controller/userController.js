@@ -200,6 +200,26 @@ const deleteUserAcct = async (req, res) => {
   }
 }
 
+const getProfileData = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const db = getDB();
+    const userCollection = db.collection('users');
+
+    // Fetch user profile data
+    const user = await userCollection.findOne({ _id: new ObjectId(userId) }, { projection: { password: 0 } });
+
+    if (!user) {
+      return res.status(404).json({ message: 'User not found' });
+    }
+
+    return res.status(200).json(user);
+  } catch (err) {
+    console.error('Error fetching profile data:', err);
+    return res.status(500).json({ message: 'Something went wrong' });
+  }
+}
 
 module.exports = {
     likePodcast,
@@ -207,4 +227,5 @@ module.exports = {
     subscribeToAdmin,
     unsubscribeFromAdmin,
     deleteUserAcct,
+    getProfileData,
 };

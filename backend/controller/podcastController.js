@@ -186,10 +186,35 @@ const deletePodcast = async (req, res) => {
   }
 }
 
+const profileViews = async (req, res) => {
+  try {
+    // Assuming only one podcast profile exists
+    const result = await podcast.findOneAndUpdate(
+      {}, // No filter needed if only one profile
+      { $inc: { views: 1 } },
+      { returnDocument: 'after' } // Return updated document
+    );
+
+    if (!result.value) {
+      return res.status(404).json({ message: 'Podcast profile not found' });
+    }
+
+    res.status(200).json({
+      message: 'Podcast profile views updated successfully',
+      podcast: result.value,
+    });
+
+  } catch (error) {
+    console.error('Error updating profile views:', error);
+    res.status(500).json({ message: 'Server error', error });
+  }
+};
+
 module.exports = {
   newPodcast,
   getPodcasts,
   getPodcastRssFeed,
   getPodcastById,
   deletePodcast,
+  profileViews,
 };

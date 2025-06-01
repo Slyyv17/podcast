@@ -50,6 +50,26 @@ const likePodcast = async (req, res) => {
   }
 };
 
+const getLikedPodcastsCount = async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const db = getDB();
+    const podcastCollection = db.collection('podcasts');
+
+    // Count how many podcasts have this user's ObjectId in userLiked
+    const count = await podcastCollection.countDocuments({
+      userLiked: new ObjectId(userId)
+    });
+
+    return res.status(200).json({ likedEpisodes: count });
+  } catch (error) {
+    console.error('Error getting liked podcasts count:', error);
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
+
 const dislikePodcast = async (req, res) => {
     const userId = req.user.id;
     const podcastId = req.params.podcastId;
@@ -223,6 +243,7 @@ const getProfileData = async (req, res) => {
 
 module.exports = {
     likePodcast,
+    getLikedPodcastsCount,
     dislikePodcast,
     subscribeToAdmin,
     unsubscribeFromAdmin,

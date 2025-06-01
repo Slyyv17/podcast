@@ -1,4 +1,5 @@
 const { getDB } = require('../config/config');
+const { ObjectId } = require('mongodb'); // Import ObjectId from mongodb
 
 const getAllUsers = async (req, res) => {
     try {
@@ -80,10 +81,31 @@ const recentEpisodes = async (req, res) => {
     }
 }
 
+const getProfile = async (req, res) => {
+  const db = getDB();
+
+  try {
+    const adminId = req.admin.id;
+    const objectId = new ObjectId(adminId); // ✅ convert string to ObjectId
+
+    const admin = await db.collection('admins').findOne({ _id: objectId }); // ✅ query using _id
+
+    if (!admin) {
+      return res.status(404).json({ message: 'Admin not found' });
+    }
+
+    res.status(200).json(admin);
+  } catch (error) {
+    console.error('Error fetching profile:', error);
+    res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
     getAllUsers,
     getNumberOfUsers,
     getNumberOfSubscribers,
     getNumberOfEpisodes,
     recentEpisodes,
+    getProfile,
 }

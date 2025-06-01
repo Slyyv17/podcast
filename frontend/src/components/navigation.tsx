@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { SearchIcon, MenuIcon, XIcon } from "lucide-react";
+import Link from "next/link";
 
 export default function Navigation() {
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
@@ -32,7 +33,7 @@ export default function Navigation() {
             </div>
             {/* Sign In Button for Mobile (optional, can be moved inside mobile menu) */}
             <button className="md:hidden text-[var(--bg-clr)] border border-[var(--txt-clr)] px-4 py-1 rounded bg-[var(--txt-clr)] transition cursor-pointer">
-                Sign In
+                <Link href="/auth/login">Sign In</Link>
             </button>
           </li>
         </ul>
@@ -51,7 +52,7 @@ export default function Navigation() {
         {/* Sign In Button - Visible on md and up */}
         <button
           className="hidden md:block text-[var(--bg-clr)] border border-[var(--txt-clr)] px-4 py-1 rounded bg-[var(--txt-clr)] transition cursor-pointer">
-          Sign In
+          <Link href="/auth/login">Sign In</Link>
         </button>
       </div>
 
@@ -77,7 +78,7 @@ export default function Navigation() {
           </li>
           <li>
             <button className="text-[var(--bg-clr)] border border-[var(--txt-clr)] px-4 py-1 rounded bg-[var(--txt-clr)] transition cursor-pointer" onClick={toggleMobileMenu}>
-              Sign In
+              <Link href="/auth/login">Sign In</Link>
             </button>
           </li>
         </ul>
